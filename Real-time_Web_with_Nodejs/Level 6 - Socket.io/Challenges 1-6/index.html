@@ -1,0 +1,30 @@
+<!-- Challenge 2: Client socket.io Setup  -->
+<!-- Challenge 3: Listening for Questions  -->
+ <!-- Challenge 7: Answering Question Client -->
+
+<!-- 2.1.) Load the socket.io.js script. The socket.io.js path you should use is
+           '/socket.io/socket.io.js'. Express knows to serve the socket.io
+           client js for this path. -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="insertQuestion.js"></script>
+<script>
+  // 2.2.) Using the global io object that's now available for us, connect to
+  //       the socket.io server at http://localhost:8080.
+  var socket = io.connect('http://localhost:8080');
+
+  // 3.1.) Listen for 'question' events from the server.
+  socket.on('question', function(data) {
+    // 3.2.) Have the event callback function call the insertQuestion function.
+    //       The insertQuestion function is already created for you, and it's
+    //       placed in its own file. It expects exactly one argument - the
+    //       question.
+    insertQuestion(data);
+  });
+  
+  // 7.1.) Listen for the 'answer' event off of the server.
+  socket.on('answer', function(question, answer) {
+    // 7.2.) Call the answerQuestion function, passing in both the question and
+    //       the answer that was broadcast from the server.
+    answerQuestion(question, answer);
+  });
+</script>
