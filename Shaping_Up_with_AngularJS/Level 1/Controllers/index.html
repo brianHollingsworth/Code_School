@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="gemStore">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
+<!-- 1.2.) Attach the StoreController to the <body> tag. Be sure to alias it as store.  -->
+
+<body ng-controller="StoreController as store">
+    
+    <!-- 1.7.) When a gem is soldOut, hide the .product element.   -->
+    <!-- 1.9.) Use the correct directive to display all the products in product row divs.  -->
+    <div class="product row" ng-hide="store.product.soldOut" ng-repeat="product in store.products">
+
+        <h3>
+            <!-- 1.4.) Display the name of the product inside the <h3> tag.  -->
+            {{product.name}}
+            <!-- 1.5.) Display the price of the product inside the <em> tag. -->
+            <em class="pull-right">${{price}}</em>
+        </h3>
+        <!-- 1.6.) Use a directive to ensure that we can only see the "Add to Cart" button if the canPurchase property is true. -->
+        <button ng-show="product.canPurchase">Add to Card</button>
+    </div>
+</body>
+
+</html>

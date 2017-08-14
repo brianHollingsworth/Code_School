@@ -1,0 +1,12 @@
+<!-- 4.17.) Put the gallery div inside of the provided product-gallery.html.
+            Remove the ng-controller from the div inside the file once moved. -->
+<div>
+    <div class="img-wrap">
+        <img ng-src="{{product.images[gallery.current]}}" />
+    </div>
+    <ul class="img-thumbnails clearfix">
+        <li class="small-image pull-left thumbnail" ng-repeat="image in product.images">
+            <img ng-src="{{image}}" />
+        </li>
+    </ul>
+</div>

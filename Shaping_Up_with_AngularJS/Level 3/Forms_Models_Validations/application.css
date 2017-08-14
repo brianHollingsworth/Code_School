@@ -1,0 +1,12 @@
+/* 3.23.) For elements with both the .ng-invalid and .ng-dirty classes, give the border-color of red. */
+
+.ng-invalid.ng-dirty {
+    border-color: red;
+}
+
+
+/* 3.24.) For ng-valid && ng-dirty, give a green border-color. */
+
+.ng-valid.ng-dirty {
+    border-color: green;
+}

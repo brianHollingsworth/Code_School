@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html ng-app="gemStore">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
+
+<body ng-controller="StoreController as store">
+    <header>
+        <h1 class="text-center">Flatlander Crafted Gems</h1>
+        <h2 class="text-center">– an Angular store –</h2>
+    </header>
+    <div class="list-group">
+        <div class="list-group-item" ng-repeat="product in store.products">
+            <h3>{{product.name}} <em class="pull-right">{{product.price | currency}}</em></h3>
+            <div ng-controller="GalleryController as gallery" ng-show="product.images.length">
+                <div class="img-wrap">
+                    <img ng-src="{{product.images[gallery.current]}}" />
+                </div>
+                <ul class="img-thumbnails clearfix">
+                    <li class="small-image pull-left thumbnail" ng-repeat="image in product.images">
+                        <img ng-src="{{image}}" />
+                    </li>
+                </ul>
+            </div>
+            <section ng-controller="TabController as tab">
+                <ul class="nav nav-pills">
+                    <li ng-class="{ active:tab.isSet(1) }">
+                        <a href="" ng-click="tab.setTab(1)">Description</a>
+                    </li>
+                    <li ng-class="{ active:tab.isSet(2) }">
+                        <a href="" ng-click="tab.setTab(2)">Specs</a>
+                    </li>
+                    <li ng-class="{ active:tab.isSet(3) }">
+                        <a href="" ng-click="tab.setTab(3)">Reviews</a>
+                    </li>
+                </ul>
+                <div ng-show="tab.isSet(1)">
+                    <h4>Description</h4>
+                    <blockquote>{{product.description}}</blockquote>
+                </div>
+                <div ng-show="tab.isSet(2)">
+                    <h4>Specs</h4>
+                    <blockquote>Shine: {{product.shine}}</blockquote>
+                </div>
+
+                <!--  Review Tab's Content  -->
+                <div ng-show="tab.isSet(3)">
+                    <!--  Product Reviews List -->
+                    <ul>
+                        <h4>Reviews</h4>
+                        <!-- 3.1.) Create multiple li's for each review that exists. -->
+                        <li>
+                            <blockquote>
+                                <!-- 3.2.) Set the blockquote stars (strong tag) to the review stars. -->
+                                <strong>{{review.stars}} Stars</strong>
+                                <!-- 3.3.) Add the review body between the strong & cite tags. -->
+                                {{review.body}}
+                                <!-- 3.4.) Set the cite to the review author. -->
+                                <cite class="clearfix">— {{review.author}}</cite>
+                            </blockquote>
+                        </li>
+                    </ul>
+
+                    <!--  Review Form -->
+                    <!-- 3.17.) Inside the form tag create a ng-controller attribute and assign it to the ReviewController with an alias of reviewCtrl. -->
+                    <!-- 3.18.) Inside the form tag create a ng-submit attribute. Set the value of the ng-submit attribute to call our new addReview function. -->
+                    <!-- 3.20.) Turn off default HTML validation. -->
+                    <!-- 3.22.) Prevent the submit if not $valid. -->
+                    <form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)"
+                        novalidate>
+
+                        <!--  Live Preview -->
+                        <blockquote>
+                            <!-- 3.8.) In the strong tag, before Stars, put in the right expression to display review.stars. Keep the space prior to Stars -->
+                            <strong>{{reviewCntrl.review.stars}} Stars</strong>
+                            <!-- 3.9.) On the blank line with no tags put in the right expression to display review.body -->
+                            {{reviewCtrl.review.body}}
+                            <!-- 3.10.) In the cite tag, immediately after the -, put in the right expression to display review.author. -->
+                            <!-- 3.26.) Add the createdOn date to the review within the cite element. We want it to say "-<Author> on <date>". -->
+                            <!-- 3.27.) Use the date filter on the createdOn property in the template.  -->
+                            <cite class="clearfix">— {{reviewCtrl.review.author}} on {{review.createdOn | date}}</cite>
+                        </blockquote>
+
+                        <!--  Review Form -->
+                        <h4>Submit a Review</h4>
+                        <!-- 3.19.) Prefix all three ng-models with the controller's alias. -->
+                        <!-- 3.21.) Mark stars & author as required fields. -->
+                        <fieldset class="form-group">
+                            <!-- 3.5.) Use ng-model for review.stars select form field. -->
+                            <select ng-model="reviewCtrl.review.stars" class="form-control" ng-options="stars for stars in [5,4,3,2,1]" title="Stars"
+                                required>
+                        <option value="">Rate the Product</option>
+                      </select>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <!-- 3.6.) Use ng-model for review.body for the forms textarea. -->
+                            <textarea ng-model="reviewCtrl.review.body" class="form-control" placeholder="Write a short review of the product..." title="Review"></textarea>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <!-- 3.7.) Use ng-model for review.author – the email field. -->
+                            <input ng-model="reviewCtrl.review.author" type="email" class="form-control" placeholder="jimmyDean@example.org" title="Email"
+                                required/>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <input type="submit" class="btn btn-primary pull-right" value="Submit Review" />
+                        </fieldset>
+                    </form>
+                </div>
+
+            </section>
+        </div>
+    </div>
+</body>
+
+</html>
