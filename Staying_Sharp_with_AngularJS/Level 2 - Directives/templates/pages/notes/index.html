@@ -1,0 +1,17 @@
+<div class="note-wrapper">
+    <div class="note-content">
+        <div class="notes-header">
+            <h1 title="Notes">Notes</h1>
+        </div>
+
+        <div class="note-wrapper">
+            <!-- 2.8.) Update the notes/index.html template to work with $scope. -->
+            <a class="card-notes" ng-repeat="note in notes" ng-href="#/notes/{{note.id}}">
+                <!-- 2.11.) Add attributes for header and description for the
+                            nw-card directive in the notes/index.html template. -->
+                <nw-card header="note.title" description="note.description"></nw-card>
+            </a>
+        </div>
+
+    </div>
+</div>
